@@ -4,21 +4,8 @@ describe AnswersController do
   let(:question) { create(:question) }
 
   describe "GET #index" do
-    let(:answers)  { create_list(:answer, 3, question: question) }
-
-    before do
-      get :index, params: { question_id: question }
-    end
-
-    it "assigns the answered question to a variable" do
-      expect(assigns(:question)).to eq(question)
-    end
-
-    it "assigns array of answers to a variable" do
-      expect(assigns(:answers)).to match_array(answers)
-    end
-
     it "renders :index view" do
+      get :index, params: { question_id: question }
       expect(response).to render_template(:index)
     end
   end
@@ -26,6 +13,7 @@ describe AnswersController do
   describe "POST #create" do
     context "with valid params" do
       let(:valid_params) { attributes_for(:answer, question: question) }
+      let(:answer) { question.answers.last }
 
       it "creates new answer for question" do
         expect do
@@ -35,7 +23,7 @@ describe AnswersController do
 
       it "params equal to created answer attributes" do
         post :create, params: { question_id: question, answer: valid_params }
-        expect(assigns(:answer).body).to eq(valid_params[:body])
+        expect(answer.body).to eq(valid_params[:body])
       end
 
       it "redirects to question" do
@@ -84,9 +72,8 @@ describe AnswersController do
       let(:answer_params) { attributes_for(:answer, :invalid, question: question) }
 
       it "doesn't update answer attributes" do
-        requested_answer = assigns(:answer)
-        requested_answer.reload
-        expect(requested_answer.body).to eq(answer.body)
+        answer.reload
+        expect(answer.body).not_to be_nil
       end
 
       it "renders question's :show view" do
