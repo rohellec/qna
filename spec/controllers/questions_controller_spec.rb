@@ -4,55 +4,29 @@ describe QuestionsController do
   let(:question) { create(:question) }
 
   describe "GET index" do
-    let(:questions) { create_list(:question, 3) }
-
-    before { get :index }
-
-    it "assigns array of questions to a variable" do
-      expect(assigns(:questions)).to match_array(questions)
-    end
-
     it "renders :index view" do
+      get :index
       expect(response).to render_template(:index)
     end
   end
 
   describe "GET show" do
-    before do
-      get :show, params: { id: question }
-    end
-
-    it "assigns the requested question to a variable" do
-      expect(assigns(:question)).to eq(question)
-    end
-
     it "renders :show view" do
+      get :show, params: { id: question }
       expect(response).to render_template(:show)
     end
   end
 
   describe "GET new" do
-    before { get :new }
-
-    it "assigns new question to a variable" do
-      expect(assigns(:question)).to be_a_new(Question)
-    end
-
     it "renders :new view" do
+      get :new
       expect(response).to render_template(:new)
     end
   end
 
   describe "GET edit" do
-    before do
-      get :edit, params: { id: question }
-    end
-
-    it "assigns the requested question to a variable" do
-      expect(assigns(:question)).to eq(question)
-    end
-
     it "renders :edit view" do
+      get :edit, params: { id: question }
       expect(response).to render_template(:edit)
     end
   end
@@ -60,6 +34,7 @@ describe QuestionsController do
   describe "POST create" do
     context "with valid params" do
       let(:valid_params) { attributes_for(:question) }
+      let(:question) { Question.last }
 
       it "creates new question" do
         expect do
@@ -69,13 +44,13 @@ describe QuestionsController do
 
       it "params equal to created question attributes" do
         post :create, params: { question: valid_params }
-        expect(assigns(:question).title).to eq(valid_params[:title])
-        expect(assigns(:question).body).to  eq(valid_params[:body])
+        expect(question.title).to eq(valid_params[:title])
+        expect(question.body).to  eq(valid_params[:body])
       end
 
       it "redirects to created question" do
         post :create, params: { question: valid_params }
-        expect(response).to redirect_to(assigns(:question))
+        expect(response).to redirect_to(question)
       end
     end
 
@@ -103,10 +78,6 @@ describe QuestionsController do
     context "with valid params" do
       let(:question_params) { attributes_for(:question) }
 
-      it "assigns the requested question to a variable" do
-        expect(assigns(:question)).to eq(question)
-      end
-
       it "updates question attributes" do
         question.reload
         expect(question.title).to eq(question_params[:title])
@@ -122,10 +93,8 @@ describe QuestionsController do
       let(:question_params) { attributes_for(:question, :invalid) }
 
       it "doesn't update question attributes" do
-        requested_question = assigns(:question)
-        requested_question.reload
-        expect(requested_question.title).to eq(question.title)
-        expect(requested_question.body).to  eq(question.body)
+        question.reload
+        expect(question.title).not_to be_nil
       end
 
       it "renders :edit view" do
