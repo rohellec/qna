@@ -1,9 +1,12 @@
 class QuestionsController < ApplicationController
+  skip_before_action :authenticate_user!, only: %i[index show]
+
   expose :questions, -> { Question.all }
   expose :question
 
   def create
     if question.save
+      flash[:success] = "New question has been succesfully created"
       redirect_to question
     else
       render :new

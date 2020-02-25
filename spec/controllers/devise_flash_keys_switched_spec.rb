@@ -6,6 +6,8 @@ describe ApplicationController do
 
   context "when devise controller" do
     controller(::DeviseController) do
+      skip_before_action :authenticate_user!
+
       def index
         flash[:notice] = "Success message"
         flash[:alert] = "Danger message"
@@ -35,6 +37,8 @@ describe ApplicationController do
 
   context "when is not devise controller" do
     controller do
+      skip_before_action :authenticate_user!
+
       def index
         flash[:notice] = "Success message"
         flash[:alert] = "Danger message"
@@ -53,6 +57,7 @@ describe ApplicationController do
     end
 
     it ":notice key is in place" do
+      p controller.flash
       expect(controller).to set_flash[:notice].to(success)
     end
 
