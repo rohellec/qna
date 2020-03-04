@@ -8,7 +8,7 @@ feature "Authenticated user can create questions", %(
 
   let(:user) { create(:user) }
 
-  context "when signed in" do
+  context "when authenticated" do
     background do
       login(user)
       visit questions_path
@@ -21,7 +21,7 @@ feature "Authenticated user can create questions", %(
       background do
         fill_in :question_title, with: question_attrs[:title]
         fill_in :question_body,  with: question_attrs[:body]
-        click_on "Create question"
+        click_on "Create Question"
       end
 
       scenario "redirected to created question with success message" do
@@ -33,7 +33,7 @@ feature "Authenticated user can create questions", %(
     end
 
     context "without filled mandatory fields" do
-      background { click_on "Create question" }
+      background { click_on "Create Question" }
 
       scenario "question is not created with errors" do
         expect(page).to have_content("New question")
@@ -43,7 +43,7 @@ feature "Authenticated user can create questions", %(
     end
   end
 
-  context "when not signed in" do
+  context "when not authenticated" do
     context "when visiting questions page" do
       background { visit questions_path }
 

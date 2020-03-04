@@ -1,0 +1,15 @@
+=form_with model: question, local: true do |f|
+  ==render "common/error_messages", resource: question
+
+  .field
+    =f.label :title
+    br
+    =f.text_field :title
+
+  .field
+    =f.label :body
+    br
+    =f.text_field :body
+
+  .actions
+    =f.submit
