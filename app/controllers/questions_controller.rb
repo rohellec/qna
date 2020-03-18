@@ -4,6 +4,7 @@ class QuestionsController < ApplicationController
 
   expose :questions, -> { Question.all }
   expose :question
+  expose :answer, -> { question.answers.build }
 
   def create
     question.author = current_user
@@ -34,12 +35,5 @@ class QuestionsController < ApplicationController
 
   def question_params
     params.require(:question).permit(:title, :body)
-  end
-
-  def redirect_if_not_author
-    return if question.author == current_user
-
-    flash[:danger] = "You need to be an author of question"
-    redirect_to root_url
   end
 end

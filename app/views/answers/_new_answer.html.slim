@@ -1,0 +1,11 @@
+=form_with scope: :answer, url: question_answers_path(question, answer), local: true,
+                           class: "new-answer" do |f|
+  ==render "common/error_messages", resource: answer
+
+  .field
+    =f.label :body
+    br
+    =f.text_area :body
+
+  .actions
+    =f.submit "Create Answer"

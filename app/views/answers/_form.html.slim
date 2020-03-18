@@ -1,0 +1,10 @@
+=form_with model: answer, local: true, class: "edit-answer" do |f|
+  ==render "common/error_messages", resource: answer
+
+  .field
+    =f.label :body
+    br
+    =f.text_area :body
+
+  .actions
+    =f.submit "Update Answer"

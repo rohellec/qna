@@ -1,0 +1,16 @@
+-if answer.persisted?
+  tr id="answer-#{answer.id}"
+    td
+      -if params[:edit]
+        ==render "answers/form", answer: answer
+      -else
+        p =answer.body
+    td
+      -if current_user&.author?(answer)
+        -if params[:edit]
+          => link_to "Cancel", question_path(question)
+        -else
+          => link_to "Edit", question_path(question, edit: true)
+        | |
+        =< link_to "Delete", answer, method: :delete,
+                                             data: { confirm: "Are you sure?" }
