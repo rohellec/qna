@@ -4,6 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  has_many :answers,   inverse_of: "author"
   has_many :questions, inverse_of: "author"
 
   def author?(resource)
