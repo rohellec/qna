@@ -6,8 +6,8 @@ feature "Author can update his own question", %(
   I want to be able to update it after creation
 ) do
 
-  given(:user) { create(:user) }
-  given(:question) { create(:question, author: user) }
+  given!(:user) { create(:user) }
+  given!(:question) { create(:question, author: user) }
 
   context "when question's author" do
     background do

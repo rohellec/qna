@@ -1,7 +1,7 @@
 require "rails_helper"
 
 feature "Authenticated user can create questions", %(
-  In order to have ability to ask community for help
+  In order to have ability to ask community for a help
   As authenticated user
   I want to be able to create questions
 ) do
@@ -48,7 +48,7 @@ feature "Authenticated user can create questions", %(
       background { visit questions_path }
 
       scenario "there is no link to create question" do
-        expect(page).not_to have_link("Ask a question")
+        expect(page).to have_no_link("Ask a question")
       end
     end
 
