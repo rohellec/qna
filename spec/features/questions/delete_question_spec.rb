@@ -1,9 +1,9 @@
 require "rails_helper"
 
 feature "User can delete his questions", %(
-  In order to eliminate my wrong questions
-  As authenticated user
-  I want to be able to delete them
+  In order to remove inappropriate question
+  As question's author
+  I want to be able to delete it
 ) do
 
   given(:user) { create(:user) }

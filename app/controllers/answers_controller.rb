@@ -17,7 +17,7 @@ class AnswersController < ApplicationController
 
   def update
     if answer.update(answer_params)
-      flash[:success] = "New answer has been succesfully updated"
+      flash[:success] = "Your answer has been successfully updated"
       redirect_to answer.question
     else
       render "questions/show"

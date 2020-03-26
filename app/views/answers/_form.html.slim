@@ -1,5 +1,6 @@
 =form_with model: answer, local: true, class: "edit-answer" do |f|
   ==render "common/error_messages", resource: answer
+  =hidden_field_tag :question_id, answer.question_id
 
   .field
     =f.label :body

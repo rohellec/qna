@@ -4,7 +4,7 @@ class QuestionsController < ApplicationController
 
   expose :questions, -> { Question.all }
   expose :question
-  expose :answer, -> { question.answers.build }
+  expose :answer, id: :answer_id, build: -> { question.answers.build }
 
   def create
     question.author = current_user
