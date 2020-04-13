@@ -1,0 +1,11 @@
+tr id="question-#{question.id}"
+  td =question.title
+  td
+    =>link_to "Show", question_path(question)
+
+    -if current_user&.author_of?(question)
+      | |
+      =<>link_to "Edit", edit_question_path(question)
+      | |
+      =< link_to "Delete", question_path(question), method: :delete,
+                                                    data: { confirm: "Are you sure?" }

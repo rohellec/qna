@@ -1,0 +1,5 @@
+- flash.each do |key, message|
+  div class="alert alert-#{key} alert-dismissable" role="alert"
+    button type="button" data-dismiss="alert" class="close"
+      span aria-hidden="true" &times;
+    =message

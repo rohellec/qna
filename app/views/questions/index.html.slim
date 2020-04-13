@@ -1,0 +1,15 @@
+-if questions.any?
+  table.questions
+    tr
+      th Title
+      th
+    ==render questions
+-else
+  p
+    em
+      | Nobody has asked any question yet...
+
+
+
+-if user_signed_in?
+  =link_to "Ask a question", new_question_path

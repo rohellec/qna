@@ -1,9 +1,15 @@
 class QuestionsController < ApplicationController
+  skip_before_action :authenticate_user!, only: %i[index show]
+  before_action :redirect_if_not_author, only: %i[edit update destroy]
+
   expose :questions, -> { Question.all }
   expose :question
+  expose :answer, id: :answer_id, build: -> { question.answers.build }
 
   def create
+    question.author = current_user
     if question.save
+      flash[:success] = "New question has been succesfully created"
       redirect_to question
     else
       render :new
@@ -12,6 +18,7 @@ class QuestionsController < ApplicationController
 
   def update
     if question.update(question_params)
+      flash[:success] = "Your question has been succesfully updated"
       redirect_to question
     else
       render :edit
@@ -20,6 +27,7 @@ class QuestionsController < ApplicationController
 
   def destroy
     question.destroy
+    flash[:success] = "Your question has been successfully deleted"
     redirect_to questions_url
   end
 

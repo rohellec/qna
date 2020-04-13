@@ -11,6 +11,7 @@ gem 'uglifier', '~> 4.2'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.9'
 gem 'decent_exposure', '~> 3.0'
+gem 'devise', '~> 4.7.1'
 
 gem 'bootsnap', '>= 1.4.5', require: false
 
