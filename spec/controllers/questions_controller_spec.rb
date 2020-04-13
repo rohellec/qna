@@ -80,10 +80,10 @@ describe QuestionsController do
       context "with valid params" do
         let(:question) { Question.last }
 
-        it "creates new question" do
+        it "creates new question for user" do
           expect do
             post :create, params: { question: params }
-          end.to change(Question, :count).by(1)
+          end.to change(user.questions, :count).by(1)
         end
 
         it "params equal to created question attributes" do

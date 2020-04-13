@@ -26,6 +26,12 @@ describe AnswersController do
           end.to change(question.answers, :count).by(1)
         end
 
+        it "creates new answer for user" do
+          expect do
+            post :create, params: { question_id: question, answer: answer_params }
+          end.to change(user.answers, :count).by(1)
+        end
+
         it "params equal to created answer attributes" do
           post :create, params: { question_id: question, answer: answer_params }
           expect(answer.body).to eq(answer_params[:body])
