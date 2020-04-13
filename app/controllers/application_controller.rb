@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
   end
 
   def redirect_if_not_author
-    return if resource.author == current_user
+    return if current_user.author_of?(resource)
     flash[:danger] = "You need to be an author of #{resource_name}"
     redirect_to root_url
   end

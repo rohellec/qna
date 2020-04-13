@@ -7,7 +7,7 @@ class User < ApplicationRecord
   has_many :answers,   inverse_of: "author"
   has_many :questions, inverse_of: "author"
 
-  def author?(resource)
-    self == resource.author
+  def author_of?(resource)
+    id == resource.author.id
   end
 end

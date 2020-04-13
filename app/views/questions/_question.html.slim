@@ -3,7 +3,7 @@ tr id="question-#{question.id}"
   td
     =>link_to "Show", question_path(question)
 
-    -if current_user&.author?(question)
+    -if current_user&.author_of?(question)
       | |
       =<>link_to "Edit", edit_question_path(question)
       | |
